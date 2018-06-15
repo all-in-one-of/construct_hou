@@ -1,0 +1,8 @@
+
+Release Notes
+=============
+
+0.1.7 (06-14-2018)
+
+* Push context to environment variables on script changed
+* Initialize resources in userSetup
