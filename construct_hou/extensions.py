@@ -80,7 +80,7 @@ class Houdini(HostExtension):
             if ask('Would you like to save?', title='Unsaved changes'):
                 hou.hipFile.save()
 
-        hou.load(file, suppress_save_prompt=True)
+        hou.hipFile.load(file, suppress_save_prompt=True)
 
     def get_selection(self):
         import hou

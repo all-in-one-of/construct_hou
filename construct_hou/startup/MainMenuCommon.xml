@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mainMenu>
+  <menuBar>
+    <subMenu id="construct_menu">
+      <label>Construct</label>
+      <scriptMenuStripDynamic>
+        <contentsScriptCode><![CDATA[
+import construct
+actions = construct.actions.collect()
+identifiers = sorted([k for k in actions.keys() if not k.startswith('launch')])
+labels = [actions[key].label for key in identifiers]
+return [item for items in zip(identifiers, labels) for item in items]
+        ]]></contentsScriptCode>
+        <scriptCode><![CDATA[
+import construct
+from construct_ui import resources
+identifier = kwargs["selectedtoken"]
+label = kwargs["selectedlabel"]
+action = construct.actions.get(identifier)
+host = construct.get_host()
+parent = host.get_qt_parent()
+form_cls = construct.get_form(action.identifier)
+if form_cls:
+    import Qt
+    factory = Qt.QtWidgets.QStyleFactory
+    style = factory.create(factory.keys()[0])
+    form = form_cls(action, construct.get_context(), parent)
+    form.setPalette(form.style().standardPalette())
+    form.setStyle(style)
+    form.setStyleSheet(resources.style(':/styles/dark'))
+    form.show()
+else:
+    action().run()
+        ]]></scriptCode>
+      </scriptMenuStripDynamic>
+    </subMenu>
+  </menuBar>
+</mainMenu>
+

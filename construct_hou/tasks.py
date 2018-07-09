@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 __all__ = [
     'setup_construct_hou',
@@ -31,5 +31,5 @@ def setup_construct_hou(app):
     if old_pypath:
         pypath += os.pathsep + old_pypath
 
-    app.env['HOUDINI_PATH'] = hou_path
+    app.env['HOUDINI_PATH'] = os.pathsep.join(['&', hou_path])
     app.env['PYTHONPATH'] = pypath

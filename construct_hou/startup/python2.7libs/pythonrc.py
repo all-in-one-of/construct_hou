@@ -4,10 +4,12 @@ import logging
 
 import construct
 from construct_hou import callbacks, utils
+from construct_ui import resources
 
 
 _log = logging.getLogger('construct.hou.pythonrc')
 construct.init()
+resources.init()
 ctx = construct.get_context()
 host = construct.get_host()
 
