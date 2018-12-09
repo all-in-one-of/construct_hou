@@ -111,18 +111,21 @@ class Houdini(HostExtension):
     def get_frame_range(self):
         import hou
         if self.version > 15:
-            frame_range = hou.playbar.frameRange()
+            min, max = hou.playbar.frameRange()
+            start, end = hou.playbar.playbackRange()
         else:
-            frame_range = hou.playbar.timelineRange()
-        return frame_range[0], frame_range[1]
+            min, max = hou.playbar.timelineRange()
+            start = min
+            end = max
+        return min, start, end, max
 
-    def set_frame_range(self, start_frame, end_frame):
+    def set_frame_range(self, min, start, end, max):
         import hou
         if self.version > 15:
-            hou.setFrameRange(start_frame, end_frame)
+            hou.playbar.setFrameRange(min, max)
+            hou.playbar.setPlaybackRange(start, end)
         else:
-            # TODO: This is wrong, how do we set global range in h15
-            hou.setPlaybackRange(start_frame, end_frame)
+            hou.setPlaybackRange(min, max)
 
     def get_qt_parent(self):
         import hou
