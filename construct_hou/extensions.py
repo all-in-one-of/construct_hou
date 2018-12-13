@@ -127,6 +127,14 @@ class Houdini(HostExtension):
         else:
             hou.setPlaybackRange(min, max)
 
+    def get_frame_rate(self):
+        import hou
+        return hou.fps()
+
+    def set_frame_rate(self, fps):
+        import hou
+        hou.setFps(fps)
+
     def get_qt_parent(self):
         import hou
         if self.version.major > 15:
