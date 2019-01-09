@@ -23,7 +23,11 @@ def setup_construct_hou(app):
     '''Setup Houdini environment'''
 
     hou_path = unipath(os.path.dirname(__file__), 'startup')
-    old_pypath = app.env.get('PYTHONPATH', '')
+    old_hou_path = app.env.get('HOUDINI_PATH', None)
+    if old_hou_path:
+        hou_path += os.pathsep + old_hou_path
+
+    old_pypath = app.env.get('PYTHONPATH', None)
     pypath = os.pathsep.join([
         hou_path,
         os.path.join(os.path.dirname(__file__), '..')
@@ -31,5 +35,5 @@ def setup_construct_hou(app):
     if old_pypath:
         pypath += os.pathsep + old_pypath
 
-    app.env['HOUDINI_PATH'] = os.pathsep.join(['&', hou_path])
+    app.env['HOUDINI_PATH'] = hou_path
     app.env['PYTHONPATH'] = pypath

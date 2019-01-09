@@ -66,10 +66,6 @@ class Houdini(HostExtension):
         import hou
         from construct_ui.dialogs import ask
 
-        if self.modified():
-            if ask('Would you like to save?', title='Unsaved changes'):
-                hou.hipFile.save()
-
         hou.hipFile.save(file)
 
     def open_file(self, file):
