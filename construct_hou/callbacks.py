@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import absolute_import
+import os
 import logging
 import construct
 
@@ -24,6 +25,8 @@ def set_context_to_hou_scene():
             'Not setting context. '
             'Scene is not in a construct workspace...'
         )
+
+    host.set_workspace(os.path.dirname(path))
 
 
 def scene_event_callback(event_type):

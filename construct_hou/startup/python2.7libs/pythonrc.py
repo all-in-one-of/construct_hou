@@ -28,7 +28,4 @@ if utils.show_file_open_at_startup():
     if ctx.workspace and not host.get_filename():
         action = construct.actions.get('file.open')
         parent = host.get_qt_parent()
-        form_cls = construct.get_form(action.identifier)
-        form = form_cls(action, ctx, parent)
-        form.setStyleSheet(resources.style(':/styles/dark'))
-        form.show()
+        form_cls = construct.show_form(action.identifier)

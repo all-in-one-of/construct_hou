@@ -19,15 +19,8 @@ label = kwargs["selectedlabel"]
 action = construct.actions.get(identifier)
 host = construct.get_host()
 parent = host.get_qt_parent()
-form_cls = construct.get_form(action.identifier)
-if form_cls:
-    import Qt
-    factory = Qt.QtWidgets.QStyleFactory
-    style = factory.create(factory.keys()[0])
-    form = form_cls(action, construct.get_context(), parent)
-    form.setPalette(form.style().standardPalette())
-    form.setStyle(style)
-    form.setStyleSheet(resources.style(':/styles/dark'))
+form = construct.get_form(action.identifier)
+if form:
     form.show()
 else:
     action().run()
